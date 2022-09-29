@@ -1,5 +1,7 @@
 # reshare-service
 
+[![.github/workflows/ci.yml](https://github.com/jhu-library-applications/reshare-service/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jhu-library-applications/reshare-service/actions/workflows/ci.yml)
+
 This is a webservice that checks ReShare's VuFind instance for 
 a loanable copy of an item using an ISN or a title/author search. 
 
