@@ -19,7 +19,7 @@ jobs:
     
     - name: Run lint
       run: |
-        go lint .
+        test -z $(gofmt -l .)
     
     - name: Build the codebase
       run: |
