@@ -1,0 +1,11 @@
+[Unit]
+Description=Reshare service
+
+[Service]
+Type=notify
+ExecStart=/usr/bin/reshare-service
+WatchdogSec=30s
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
