@@ -103,7 +103,7 @@ func (r Request) ItemRequest() string {
 		r.Isn = ""
 		r.ItemRequest()
 	} else {
-		return "This item is not available for loan via BorrowDirect."
+		return r.GenTitleAuthorRequestUrl()
 	}
 
 	return "This item is not available for loan via BorrowDirect."
