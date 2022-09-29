@@ -1,0 +1,32 @@
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '1.19'
+
+    - name: Run vet
+      run: |
+        go vet .
+    
+    - name: Run lint
+      run: |
+        go lint .
+    
+    - name: Build the codebase
+      run: |
+        go build .
+
+    - name: Upload binary as an artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: reshare-service
+        path: reshare-service
