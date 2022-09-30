@@ -11,6 +11,7 @@ import (
 
 const apiBase = "https://borrowdirect.reshare.indexdata.com/api/v1/search"
 const recordBaseURL = "https://borrowdirect.reshare.indexdata.com/Record/"
+const searchBase = "https://borrowdirect.reshare.indexdata.com/Search/Results"
 
 type Request struct {
 	Isn        string
@@ -19,10 +20,17 @@ type Request struct {
 	requestURL string
 }
 
-func (r Request) GenTitleAuthorRequestUrl() string {
+func (r Request) GenTitleAuthorRequestUrl(apiSearch bool) string {
 	fields := []string{"id", "authors", "lendingStatus"}
+	var baseURL string
 
-	requestURL, err := url.Parse(apiBase)
+	if apiSearch {
+		baseURL = apiBase
+	} else {
+		baseURL = searchBase
+	}
+
+	requestURL, err := url.Parse(baseURL)
 	if err != nil {
 		log.Fatal(err)
 	} else {
@@ -67,7 +75,7 @@ func (r Request) ItemRequest() string {
 
 	// Generate a request URL.
 	if r.Isn == "" || len(r.Isn) > 1 {
-		r.requestURL = r.GenTitleAuthorRequestUrl()
+		r.requestURL = r.GenTitleAuthorRequestUrl(true)
 	} else {
 		r.requestURL = r.GenIsnRequestUrl()
 	}
@@ -103,7 +111,7 @@ func (r Request) ItemRequest() string {
 		r.Isn = ""
 		r.ItemRequest()
 	} else {
-		return r.GenTitleAuthorRequestUrl()
+		return r.GenTitleAuthorRequestUrl(false)
 	}
 
 	return "This item is not available for loan via BorrowDirect."
